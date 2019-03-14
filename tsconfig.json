@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+      "outDir": "./build",
+      "allowJs": true,
+      "lib": ["es2017", "dom"],
+      "module": "commonjs",
+      "target": "es2017",
+      "allowSyntheticDefaultImports": true
+  },
+  "include": [
+      "api/src/**/*"
+  ]
+}

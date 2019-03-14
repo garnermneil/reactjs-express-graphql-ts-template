@@ -1,0 +1,26 @@
+{
+  "name": "reactjs-express-ts-template",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/garnermneil/reactjs-express-ts-template.git",
+  "license": "MIT",
+  "scripts": {
+    "start:app": "cd app && yarn start",
+    "start:api": "cd api && yarn start",
+    "dev": "concurrently --kill-others-on-fail \"yarn start:api\" \"yarn start:app\"",
+    "build": "cd app && yarn build",
+    "install:root": "yarn install",
+    "install:app": "cd app && yarn install",
+    "install:api": "cd api && yarn install",
+    "install:all": "yarn install:root && yarn install:app && yarn install:api",
+    "start": "NODE_ENV=production yarn start:api"
+  },
+  "dependencies": {
+    "nodemon": "^1.18.10",
+    "ts-node": "^8.0.3",
+    "typescript": "^3.3.3333"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  }
+}
