@@ -1,25 +1,36 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import ApolloClient from 'apollo-client'
+import { HttpLink } from 'apollo-link-http'
+import { BatchHttpLink } from 'apollo-link-batch-http'
+import { split } from 'apollo-link'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import gql from 'graphql-tag'
+
+import { Greeting } from './components/Greeting'
+
+declare global {
+  interface Window {
+      APOLLO_STATE: any
+  }
+}
+
+const connectionOptions = {
+  uri: '/graphql'
+}
+const httpLink = new HttpLink(connectionOptions)
+const batchHttpLink = new BatchHttpLink(connectionOptions)
+
+const client = new ApolloClient({
+  link: split(operation => operation.getContext().important === true, httpLink, batchHttpLink),
+  cache: new InMemoryCache().restore(window.APOLLO_STATE)
+})
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Greeting client={client} name="Neil"/>
       </div>
     );
   }
